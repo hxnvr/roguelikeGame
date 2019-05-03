@@ -2,10 +2,9 @@
 
 fun main(args: Array<String>){
     val field = GameField(1.0)
-    val enemy = createEnemy(1.0)
+    val event = createEvent(1.0)
     var check = false
-    while (!check)
-    check = field.character.interact(enemy)
+    println(field.interact(field.character, event))
 }
 
 

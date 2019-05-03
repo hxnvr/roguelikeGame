@@ -19,7 +19,9 @@ fun random(start: Int, finish: Int): Int {
         var damage: Int,
         var lootType: Int,
         var lootValue: Int
-    )
+    ) {
+        fun toEmptyCell(): EmptyCell = EmptyCell()
+    }
 
     fun createEnemy(k: Double): Enemy {
         val enemyName = File("input/enemyNames.txt").readLines().shuffled().first()
@@ -40,7 +42,9 @@ fun random(start: Int, finish: Int): Int {
     class Box(var image: Any,
               var name: String,
               var lootType: Int,
-              var lootValue: Int)
+              var lootValue: Int) {
+        fun toEmptyCell(): EmptyCell = EmptyCell()
+    }
 
     fun createBox(k: Double): Box {
         val boxName = File("input/boxNames.txt").readLines().shuffled().first()
@@ -59,7 +63,9 @@ fun random(start: Int, finish: Int): Int {
     class Event(var image: Any,
                 var name: String,
                 var lootType: Int,
-                var lootValue: Int)
+                var lootValue: Int) {
+        fun toEmptyCell(): EmptyCell = EmptyCell()
+    }
 
     fun createEvent(k: Double): Event {
         val eventInfo = File("input/eventNames.txt").readLines().shuffled().first().split("-----")
@@ -98,12 +104,12 @@ fun random(start: Int, finish: Int): Int {
         var key = false
 
 
-        fun addPotion(type: Int) {
+        private fun addPotion(type: Int) {
             this.potions.map { if (it.type == type) it.value ++ }
         }
 
 
-        fun healthEffect(effect: Int) {
+        private fun healthEffect(effect: Int) {
             this.health += effect
         }
 
@@ -118,7 +124,7 @@ fun random(start: Int, finish: Int): Int {
         }
 
 
-        fun upgradeAttack(newAttack: Int): Boolean {
+        private fun upgradeAttack(newAttack: Int): Boolean {
             return if (this.damage < newAttack) {
                 this.damage = newAttack
                 true
