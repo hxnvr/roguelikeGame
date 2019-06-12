@@ -2,9 +2,7 @@
 
 fun main(args: Array<String>){
     val field = GameField(1.0)
-    val event = createEvent(1.0)
-    var check = false
-    println(field.interact(field.character, event))
+    field.gameField[3, 5].javaClass
 }
 
 

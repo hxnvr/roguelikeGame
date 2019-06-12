@@ -1,6 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER", "unused")
 
-
+import javafx.scene.image.Image
 
 
 class GameField(k: Double) {
@@ -9,7 +9,7 @@ class GameField(k: Double) {
     private val listOfPotionTypes = mapOf(1 to "Лечения")
     private val listOfCells = createGamingKit(k)
     var gameField = createMatrix(6, 6, Any())
-    var character = createCharacter("", "")
+    var character = createCharacter("")
 
 
     /**
@@ -27,6 +27,12 @@ class GameField(k: Double) {
             }
         gameField[5, 5] = character
     }
+
+
+    fun Enemy.getClass(): Enemy {
+        return this
+    }
+
 
 
     fun interact(character: Character,enemy: Enemy): Boolean {
@@ -54,15 +60,14 @@ class GameField(k: Double) {
 
     fun interact(character: Character,event: Event): String {
         val check = character.upgrade(event.lootType, event.lootValue)
-        var message: String
+        val message: String
         message = if (check) {
             if (event.lootType != 4)
-                "${event.name} и вы нашли ${listOfLootTypes[event.lootType]} ${event.lootValue}"
+                "${event.name}, и вы получили ${listOfLootTypes[event.lootType]} ${event.lootValue}"
             else
-                "${event.name} и вы получили ${listOfLootTypes[event.lootType]} ${listOfPotionTypes[event.lootValue]}"
+                "${event.name}, и вы нашли ${listOfLootTypes[event.lootType]} ${listOfPotionTypes[event.lootValue]}"
         } else
             "${event.name}, да и все собственно"
-        event.toEmptyCell()
         return message
     }
 }

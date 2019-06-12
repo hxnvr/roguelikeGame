@@ -1,5 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER", "unused")
 
+import javafx.scene.image.Image
 import java.io.File
 
 
@@ -13,19 +14,19 @@ fun random(start: Int, finish: Int): Int {
 
 
     class Enemy(
-        var image: Any,
-        var name: String,
+        val image: Image,
+        val name: String,
         var health: Int,
-        var damage: Int,
-        var lootType: Int,
-        var lootValue: Int
+        val damage: Int,
+        val lootType: Int,
+        val lootValue: Int
     ) {
         fun toEmptyCell(): EmptyCell = EmptyCell()
     }
 
     fun createEnemy(k: Double): Enemy {
         val enemyName = File("input/enemyNames.txt").readLines().shuffled().first()
-        val enemyImage = "TODO()"
+        val enemyImage = Image(File("images/enemy.png").toURI().toString())
         val enemyHealth = (random(20, 40) * k).toInt()
         val enemyDamage = (random(5, 10) * k).toInt()
         val enemyLootType = random(2, 5)
@@ -39,16 +40,16 @@ fun random(start: Int, finish: Int): Int {
     }
 
 
-    class Box(var image: Any,
-              var name: String,
-              var lootType: Int,
-              var lootValue: Int) {
+    class Box(val image: Image,
+              val name: String,
+              val lootType: Int,
+              val lootValue: Int) {
         fun toEmptyCell(): EmptyCell = EmptyCell()
     }
 
     fun createBox(k: Double): Box {
         val boxName = File("input/boxNames.txt").readLines().shuffled().first()
-        val boxImage = "TODO()"
+        val boxImage = Image(File("images/box.png").toURI().toString())
         val boxLootType = random(2, 4)
         val boxLootValue = when (boxLootType) {
             2 -> (random(5, 10) * k).toInt()
@@ -60,17 +61,17 @@ fun random(start: Int, finish: Int): Int {
     }
 
 
-    class Event(var image: Any,
-                var name: String,
-                var lootType: Int,
-                var lootValue: Int) {
+    class Event(val image: Image,
+                val name: String,
+                val lootType: Int,
+                val lootValue: Int) {
         fun toEmptyCell(): EmptyCell = EmptyCell()
     }
 
     fun createEvent(k: Double): Event {
         val eventInfo = File("input/eventNames.txt").readLines().shuffled().first().split("-----")
         val eventName = eventInfo[0]
-        val eventImage = "TODO()"
+        val eventImage = Image(File("images/event.png").toURI().toString())
         val eventLootType = eventInfo[1].toInt()
         val eventLootValue = when (eventLootType) {
             1 -> (random(-20, 20) * k).toInt()
@@ -95,7 +96,7 @@ fun random(start: Int, finish: Int): Int {
     }
 
 
-    class Character(var image: Any,
+    class Character(var image: Image,
                     var name: String,
                     var health: Int,
                     var damage: Int,
@@ -111,6 +112,8 @@ fun random(start: Int, finish: Int): Int {
 
         private fun healthEffect(effect: Int) {
             this.health += effect
+            if (this.health > 40)
+                this.health = 40
         }
 
 
@@ -153,22 +156,22 @@ fun random(start: Int, finish: Int): Int {
         }
     }
 
-    fun createCharacter(image: Any, name: String): Character {
-        return Character(image, name, 40, 5, 0)
+    fun createCharacter(name: String): Character {
+        return Character(Image(File("images/minichel.png").toURI().toString()), name, 40, 5, 0)
     }
 
 
 class Exit{
-    var image = "TODO"
+    val image = Image(File("images/exit.png").toURI().toString())
     var check = false
 }
 
 class Key{
-    var image = "TODO()"
+    val image = Image(File("images/key.png").toURI().toString())
 }
 
 class EmptyCell{
-    var image = "TODO()"
+    val image = Image(File("images/empty.png").toURI().toString())
 }
 
 
