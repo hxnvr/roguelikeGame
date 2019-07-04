@@ -162,7 +162,7 @@ fun random(start: Int, finish: Int): Int {
 
 
 class Exit{
-    val image = Image(File("images/exit.png").toURI().toString())
+    val image = Image(File("images/door.png").toURI().toString())
     var check = false
 }
 
