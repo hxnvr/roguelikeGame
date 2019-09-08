@@ -39,22 +39,20 @@ class GameField(k: Double) {
         val check = character.attack(enemy)
         if (check) {
             character.upgrade(enemy.lootType, enemy.lootValue)
-            enemy.toEmptyCell()
         }
         return check
     }
 
     fun interact(character: Character, box: Box): String {
         val check = character.upgrade(box.lootType, box.lootValue)
-        var message = ""
+        val message: String
         message = if (check) {
             if (box.lootType != 4)
-                "Вы нашли в ${box.name} ${listOfLootTypes[box.lootType]} - ${box.lootValue}"
+                "Вы нашли в ${box.name} ${listOfLootTypes[box.lootType]}  ${box.lootValue}"
             else
-                "Вы нашли в ${box.name} ${listOfLootTypes[box.lootType]} - ${listOfPotionTypes[box.lootValue]}"
+                "Вы нашли в ${box.name} ${listOfLootTypes[box.lootType]}  ${listOfPotionTypes[box.lootValue]}"
         } else
             "Вы не нашли ничего интересного"
-        box.toEmptyCell()
         return message
     }
 

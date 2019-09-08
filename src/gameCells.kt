@@ -74,7 +74,7 @@ fun random(start: Int, finish: Int): Int {
         val eventImage = Image(File("images/event.png").toURI().toString())
         val eventLootType = eventInfo[1].toInt()
         val eventLootValue = when (eventLootType) {
-            1 -> (random(-20, 20) * k).toInt()
+            1 -> (random(-10, 10) * k).toInt()
             2 -> (random(5, 10) * k).toInt()
             3 -> (random(1, 5) * k).toInt()
             4 -> random(1, 5)
@@ -120,7 +120,9 @@ fun random(start: Int, finish: Int): Int {
         fun attack(enemy: Enemy): Boolean {
             enemy.health -= this.damage
             if (enemy.health > 0) {
-                this.health -= enemy.damage
+                this.health -= (enemy.damage - this.armor)
+                this.armor -= enemy.damage
+                if (this.armor < 0) this.armor = 0
                 return false
             }
             return true
@@ -147,8 +149,10 @@ fun random(start: Int, finish: Int): Int {
             when(type) {
                 1 -> { this.healthEffect(value)
                     return true }
-                2 -> return this.upgradeAttack(value)
-                3 -> return this.upgradeArmor(value)
+                2 -> { this.upgradeAttack(value)
+                    return true}
+                3 -> {this.upgradeArmor(value)
+                    return true}
                 4 -> { this.addPotion(value)
                     return true}
             }
@@ -163,7 +167,6 @@ fun random(start: Int, finish: Int): Int {
 
 class Exit{
     val image = Image(File("images/door.png").toURI().toString())
-    var check = false
 }
 
 class Key{
