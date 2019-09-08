@@ -27,7 +27,7 @@ fun random(start: Int, finish: Int): Int {
     fun createEnemy(k: Double): Enemy {
         val enemyName = File("input/enemyNames.txt").readLines().shuffled().first()
         val enemyImage = Image(File("images/enemy.png").toURI().toString())
-        val enemyHealth = (random(20, 40) * k).toInt()
+        val enemyHealth = (random(10, 20) * k).toInt()
         val enemyDamage = (random(5, 10) * k).toInt()
         val enemyLootType = random(2, 5)
         val enemyLootValue = when (enemyLootType) {
@@ -118,13 +118,14 @@ fun random(start: Int, finish: Int): Int {
 
 
         fun attack(enemy: Enemy): Boolean {
+            while(enemy.health >=0 && this.health >= 0){
             enemy.health -= this.damage
             if (enemy.health > 0) {
                 this.health -= (enemy.damage - this.armor)
                 this.armor -= enemy.damage
                 if (this.armor < 0) this.armor = 0
-                return false
-            }
+
+            }}
             return true
         }
 

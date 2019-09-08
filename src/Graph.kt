@@ -47,6 +47,12 @@ class Main: Application() {
             else -> pole
         }
     }
+    fun sss(i: Int, k: Int): Label{
+        val a = matrix[i, k]
+        var b = Label()
+        if(a is Enemy) b.text = "${a.damage}         ${a.health}"
+        return b
+    }
 
     fun buttons(){
         var charPos = Pair(5, 5)
@@ -240,11 +246,16 @@ class Main: Application() {
         for (i in 0..5)
             for (k in 0..5){
                 val imgv = ImageView(ss(i,k))
+                val label = sss(i,k)
                 x = 100.0 * i
                 y = 100.0 * k
                 imgv.x = x
                 imgv.y = y
+                label.layoutX = x + 12
+                label.layoutY = y + 3
+                label.font = Font.font(17.0)
                 root.children.add(imgv)
+                root.children.add(label)
 
             }
     }
